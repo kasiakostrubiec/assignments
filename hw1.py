@@ -29,7 +29,10 @@ def poland_cases_by_date(day: int, month: int, year: int = 2020) -> int:
     """
     
     # Your code goes here (remove pass)
-    pass
+  def poland_cases_by_date(day: int,  month:  int,  year: int = 2020) ->int:
+    year= year-2000
+    result=confirmed_cases.loc[confirmed_cases["Country/Region"]=="Poland"]
+    return(result[0])
 
 
 def top5_countries_by_date(day: int, month: int, year: int = 2020) -> List[str]:
@@ -49,7 +52,19 @@ def top5_countries_by_date(day: int, month: int, year: int = 2020) -> List[str]:
     """
 
     # Your code goes here (remove pass)
-    pass
+    def top5_countries_by_date(day: int,  month:  int,  year: int = 2020) -> List[str]:
+  if year != 2020 or day == 0 or month != 1 and month != 2 and month != 3:
+    print ("date out of range")
+    return
+  year=year-2000
+  a=confirmed_cases.sort_values(by=f"{month}/{day}/{year}"), ascending=False)
+  a.groupby(["Country/Region"])
+  b=a[["Country/Region"]].values.tolist()
+  flat_list = []
+  for sublist in b:
+    for item in sublist:
+      flat_list.append(item)
+  return flat_list
 
 # Function name is wrong, read the pydoc
 def no_new_cases_count(day: int, month: int, year: int = 2020) -> int:
@@ -70,4 +85,13 @@ def no_new_cases_count(day: int, month: int, year: int = 2020) -> int:
     """
     
     # Your code goes here (remove pass)
-    pass
+   def no_new_cases_count(day: int,  month:  int,  year: int = 2020) ->int:
+      year=year-2020
+      a=confirmed_cases[[f"{month}/{day}/{year}"]].values.tolist()
+      b=confirmed_cases[[f"{month}/{day-1}/{year}"]].values.tolist()
+      count=463
+      c=0
+      for i in range(len(a)):
+         c=c+1
+      return c
+
